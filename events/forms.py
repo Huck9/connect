@@ -10,12 +10,10 @@ class TimeInput(forms.TimeInput):
 
 
 class CreateNew(forms.Form):
-    Nazwa_Wyd = forms.CharField(label="Nazwa Wydarzenia", max_length=30)
+    ev_Nam = forms.CharField(label="Nazwa Wydarzenia", max_length=30)
 
-    Data_rozp = forms.DateField(label="Data rozpoczecia wydarzenia", widget=DateInput)
-    Czas_rozp = forms.TimeField(label="Czas rozpoczęcia wydarzenia", widget=TimeInput)
+    ev_Start_Date = forms.DateField(label="Data rozpoczecia wydarzenia", widget=DateInput, required=False)
+    ev_Start_Time = forms.TimeField(label="Czas rozpoczęcia wydarzenia", widget=TimeInput, required=False)
 
-    Data_zak = forms.DateField(label="Data zakonczenia wydarzenia (1)", widget=DateInput)
-    Czas_zak = forms.TimeField(label="Czas zakonczenia wydarzenia (1)", widget=TimeInput)
-
-    Czas_trw = forms.TimeField(label="Czas  trwania wydarzenia (2)", widget=TimeInput)
+    ev_End_Date = forms.DateField(label="Data zakonczenia wydarzenia (1)", widget=DateInput, required=False)
+    ev_End_Time = forms.TimeField(label="Czas zakonczenia wydarzenia (1)", widget=TimeInput, required=False)

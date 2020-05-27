@@ -7,7 +7,7 @@ from .models import Event
 
 # Create your views here.
 def home(response):
-    return HttpResponse("strina glowna wydarzen <br> <a href = \"rejestruj \">Utwórz Wydarzenie</a> ")
+    return HttpResponse("strina glowna wydarzen <br> <a href = \"register \">Utwórz Wydarzenie</a> ")
 
 
 def nr(response):
@@ -18,8 +18,9 @@ def Register(response):
     if response.method == "POST":
         form = CreateNew(response.POST)
         if form.is_valid():
-            n = form.cleaned_data["name"]
-            t = Event(title=n)
+            ev_nam = form.cleaned_data["ev_Nam"]
+
+            t = Event(Event_Name=ev_nam)
             t.save()
         return HttpResponseRedirect("succes")
     else:
