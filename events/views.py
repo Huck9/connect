@@ -5,10 +5,6 @@ from .forms import CreateNew
 from .models import Event
 
 
-# Create your views here.
-def home(response):
-    return HttpResponse("strina glowna wydarzen <br> <a href = \"register \">Utwórz Wydarzenie</a> ")
-
 
 def nr(response):
     return HttpResponse("panel wydarzenia")
