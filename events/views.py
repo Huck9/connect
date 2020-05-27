@@ -1,0 +1,32 @@
+from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import login, authenticate
+from .forms import CreateNew
+from .models import Event
+
+
+# Create your views here.
+def home(response):
+    return HttpResponse("strina glowna wydarzen <br> <a href = \"rejestruj \">Utwórz Wydarzenie</a> ")
+
+
+def nr(response):
+    return HttpResponse("panel wydarzenia")
+
+
+def Register(response):
+    if response.method == "POST":
+        form = CreateNew(response.POST)
+        if form.is_valid():
+            n = form.cleaned_data["name"]
+            t = Event(title=n)
+            t.save()
+        return HttpResponseRedirect("succes")
+    else:
+        form = CreateNew()
+
+    return render(response, "events/register.html", {"form": form})
+
+
+def suc(response):
+    return HttpResponse("Działa")
