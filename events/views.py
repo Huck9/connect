@@ -56,19 +56,26 @@ def details(request, i=None):
 
 def edit(request, i=None):
     instance = get_object_or_404(Event, id=i)
-    instance_form = ModifyEvent(request.POST or None, instance=instance)
-    if instance_form.is_valid():
-        instance_form.save()
+    print(request.user)
+    print(instance.Even_Owner)
 
-    return render(request, 'events/upload.html', {'upload_form': instance_form})
+    if request.user == instance.Even_Owner:
+        instance_form = ModifyEvent(request.POST or None, instance=instance)
+        if instance_form.is_valid():
+            instance_form.save()
+
+        return render(request, 'events/upload.html', {'upload_form': instance_form})
+    else:
+        return HttpResponseRedirect("/../LoginError")
 
 
 def delete(request, i=None):
     instance = get_object_or_404(Event, id=i)
-
-    instance.delete()
-
-    return HttpResponse("Usunieto")
+    if request.user == instance.Even_Owner:
+        instance.delete()
+        return HttpResponse("Usunieto")
+    else:
+        return HttpResponseRedirect("/../LoginError")
 
 def suc(request):
     return HttpResponse("Działa")
