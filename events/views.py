@@ -5,28 +5,29 @@ from .forms import CreateNew
 from .models import Event
 
 
-
 def nr(response):
     return HttpResponse("panel wydarzenia")
 
 
-def Register(response):
-    if response.method == "POST":
-        form = CreateNew(response.POST)
-        if form.is_valid():
-            ev_nam = form.cleaned_data["ev_Nam"]
+def register(response):
+    if response.user.is_authenticated:
+        if response.method == "POST":
+            form = CreateNew(response.POST)
+            if form.is_valid():
+                ev_nam = form.cleaned_data["ev_Nam"]
+                ev_st_d = form.cleaned_data["ev_Start_Date"]
+                ev_st_t = form.cleaned_data["ev_Start_Time"]
+                own = response.user.id
+                t = Event(Event_Name=ev_nam, Event_Start_Date=ev_st_d, Event_Start_Time=ev_st_t, Even_Owner=own)
+                t.save()
+            return HttpResponseRedirect("succes")
+        else:
+            form = CreateNew()
 
-            t = Event(Event_Name=ev_nam)
-            t.save()
-        return HttpResponseRedirect("succes")
+        return render(response, "events/register.html", {"form": form})
     else:
-        form = CreateNew()
-
-    return render(response, "events/register.html", {"form": form})
+        return HttpResponseRedirect("/../LoginError")
 
 
 def suc(response):
     return HttpResponse("Działa")
-
-
-

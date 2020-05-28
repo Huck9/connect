@@ -2,26 +2,32 @@ from django.shortcuts import render, redirect
 from .models import MainEvent
 from .forms import MainEventCreate
 from django.http import HttpResponse
+
+
 # Create your views here.
 
 
-def showevent(request):
+def events(request):
     if request.user.is_authenticated:
         event = MainEvent.objects.all()
         return render(request, 'event/showEvents.html', {'event': event})
     else:
-        return redirect('main/index.html')
+        return redirect('/LoginError')
 
 
-def addevent(request):
-    event = MainEventCreate()
-    if request.method == 'POST':
-        event = MainEventCreate(request.POST, request.FILES)
-        if event.is_valid():
-            event.save()
+def add_event(request):
+    if request.user.is_authenticated:
 
-            return redirect('event/showEvents.html', {'event': event})
+        event = MainEventCreate()
+        if request.method == 'POST':
+            event = MainEventCreate(request.POST, request.FILES)
+
+            if event.is_valid():
+                event.save()
+                return redirect('/../event')
+            else:
+                return redirect('/../event/addEvent/')
         else:
-            return redirect('main/index.html')
+            return render(request, 'event/upoladform.html', {'form': event})
     else:
-        return render(request, 'event/upoladform.html', {'form': event})
+        return redirect('/LoginError')

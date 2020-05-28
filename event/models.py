@@ -10,6 +10,7 @@ class MainEvent(models.Model):
     event_date = models.DateField()
     event_time = models.DateTimeField()
     event_dec = models.TextField(max_length=250)
+    event_own = models.TextField()
 
     def __str__(self):
         return self.event_name
