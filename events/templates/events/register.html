@@ -1,16 +1,17 @@
 {% extends "main/base.html" %}
 
 {% block title %}Connect{% endblock %}
-
+{% load crispy_forms_tags %}
 
 {% block content %}
 
-rejestracja nowego wdarzenia
-
-<form method="post">
-    {%  csrf_token %}
-    {{ form.as_p}}
-    <button type="submit" name="save">Wyslij</button>
-</form>
+    rejestracja nowego wdarzenia
+    <div class="register">
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" name="save">Wyslij</button>
+        </form>
+    </div>
 
 {% endblock %}

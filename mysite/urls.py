@@ -23,5 +23,6 @@ urlpatterns = [
     path('register/', v.register, name='register'),
     path('', main_view.home, name='main'),
     path('', include('django.contrib.auth.urls')),
-    path('event/', include("events.urls")),
+    path('event/', include('event.urls')),
+
 ]
