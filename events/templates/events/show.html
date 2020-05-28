@@ -1,0 +1,22 @@
+{% extends "main/base.html" %}
+
+{% block title %}Connect{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<center>
+    <div class="element">   {{ instance.Event_Name }}    </div>
+    <div class="element">   {{ instance.Event_Start_Date }}    </div>
+    <div class="element">   {{ instance.Event_Start_Time}}    </div>
+    <div class="element">   {{ instance.Event_End_Date}}    </div>
+    <div class="element">   {{ instance.Event_End_Time}}    </div>
+    <div class="element">   {{ instance.Event_Description}}    </div>
+    <div class="element">   {{ instance.Event_Program}}    </div>
+</center>
+
+
+<a href="../../delete/{{ instance.id }}">Usun wydarzenie</a>
+<a href="../../edit/{{ instance.id }}">Edytuj wydarzenie</a>
+
+{% endblock %}

@@ -15,5 +15,5 @@ def register(request):
     return render(request, "register/register.html", {"form": form})
 
 
-def loginError(request):
-    return render(request, "register/loginerror.html")
+def login_error(response): #usun _
+    return render(response, "register/loginerror.html")
