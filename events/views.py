@@ -77,6 +77,7 @@ def delete(request, i=None):
     else:
         return HttpResponseRedirect("/../LoginError")
 
+
 def suc(request):
     return HttpResponse("Działa")
 

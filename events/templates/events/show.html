@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<center>
+<div class="element">
     <div class="element">   {{ instance.Event_Name }}    </div>
     <div class="element">   {{ instance.Event_Start_Date }}    </div>
     <div class="element">   {{ instance.Event_Start_Time}}    </div>
@@ -13,10 +13,10 @@
     <div class="element">   {{ instance.Event_End_Time}}    </div>
     <div class="element">   {{ instance.Event_Description}}    </div>
     <div class="element">   {{ instance.Event_Program}}    </div>
-</center>
+</div>
 
-
+{% if instance.Even_Owner == request.user %}
 <a href="../../delete/{{ instance.id }}">Usun wydarzenie</a>
 <a href="../../edit/{{ instance.id }}">Edytuj wydarzenie</a>
-
+{% endif %}
 {% endblock %}
