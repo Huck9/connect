@@ -2,5 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("", views.loginError, name="Powodzenie"),
+    path("", views.login_error, name="Powodzenie"),
 ]
