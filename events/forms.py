@@ -17,3 +17,5 @@ class CreateNew(forms.Form):
 
     ev_End_Date = forms.DateField(label="Data zakonczenia wydarzenia (1)", widget=DateInput, required=False)
     ev_End_Time = forms.TimeField(label="Czas zakonczenia wydarzenia (1)", widget=TimeInput, required=False)
+
+

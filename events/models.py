@@ -14,3 +14,9 @@ class TicketList(models.Model):
 
 class Event(models.Model):
     Event_Name = models.TextField()
+
+    def __str__(self):
+        return self.Event_Name
+
+
+

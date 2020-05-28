@@ -27,3 +27,6 @@ def Register(response):
 
 def suc(response):
     return HttpResponse("Działa")
+
+
+
