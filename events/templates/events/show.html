@@ -1,0 +1,15 @@
+{% extends "main/base.html" %}
+
+{% block title %}Connect{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="element">
+        {{ instance.Even_Owner }}
+        {{ instance.Event_Description }}
+        {{ instance.Event_Name }}
+        {{ instance.Event_Program }}
+    </div>
+
+{% endblock %}
