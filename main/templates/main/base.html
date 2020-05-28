@@ -24,7 +24,12 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <button class="btn btn-success my-2 my-sm-0" type="submit"><a href="/login">Zaloguj</a></button>
+        
+        {% if request.user.is_authenticated %}
+            <button class="btn btn-success my-2 my-sm-0" type="submit"><a href="/logout">Wyloguj</a></button>
+        {% else %}
+            <button class="btn btn-success my-2 my-sm-0" type="submit"><a href="/login">Zaloguj</a></button>
+        {% endif %}
     </nav>
 </header>
 
