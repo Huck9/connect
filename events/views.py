@@ -62,13 +62,12 @@ def edit(request, i=None):
 def delete(request, i=None):
     instance = get_object_or_404(Event, id=i)
 
-    # if instance.DoesNotExist:
-    #     return HttpResponse("error")
-    
     instance.delete()
 
     return HttpResponse("Usunieto")
 
-
 def suc(request):
     return HttpResponse("Działa")
+
+
+
