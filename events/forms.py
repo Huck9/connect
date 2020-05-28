@@ -20,10 +20,8 @@ class CreateNew(forms.Form):
     ev_End_Date = forms.DateField(label="Data zakonczenia wydarzenia", widget=DateInput, required=True)
     ev_End_Time = forms.TimeField(label="Czas zakonczenia wydarzenia", widget=TimeInput, required=True)
 
-    # tickets
-
-    # ev_Icon = forms.FileField(label="Ikona Eventu", required=False)
-    # ev_Map = forms.FileField(label="Mapa Eventu", required=False)
+    ev_Description = forms.CharField(label="Opis wydarzenia")
+    ev_Program = forms.CharField(label="Program wydarzenia")
 
 
 class ModifyEvent(forms.ModelForm):

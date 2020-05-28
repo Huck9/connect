@@ -24,15 +24,19 @@ def register(request):
 
                 own = request.user
 
+                ev_Des = form.cleaned_data["ev_Description"]
+                ev_Pro = form.cleaned_data["ev_Program"]
+
                 # ev_map = form.changed_data["ev_Map"]
                 # ev_icon = form.changed_data["ev_Icon"]
                 # Event_MapFile = ev_map, # czemu to krwa nie dziala
                 # Event_IconFile = ev_icon
 
                 t = Event(Event_Name=ev_nam, Event_Start_Date=ev_st_d, Event_Start_Time=ev_st_t,
-                          Event_End_Date=ev_end_d, Event_End_Time=ev_end_t, Even_Owner=own, )
+                          Event_End_Date=ev_end_d, Event_End_Time=ev_end_t, Even_Owner=own, Event_Description=ev_Des,Event_Program=ev_Pro)
                 t.save()
-            return HttpResponseRedirect("succes")
+                print(t.id)
+            return HttpResponseRedirect("../details/"+str(t.id))
         else:
             form = CreateNew()
 
