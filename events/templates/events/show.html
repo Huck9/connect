@@ -5,36 +5,18 @@
 
 {% block content %}
 
-    <div class="element">
-        Opis Głownego wydarzenia
-        <div class="element">   {{ instance.Event_Name }}    </div>
-        <div class="element">   {{ instance.Event_Start_Date }}    </div>
-        <div class="element">   {{ instance.Event_Start_Time }}    </div>
-        <div class="element">   {{ instance.Event_End_Date }}    </div>
-        <div class="element">   {{ instance.Event_End_Time }}    </div>
-        <div class="element">   {{ instance.Event_Description }}    </div>
-        <div class="element">   {{ instance.Event_Program }}    </div>
-    </div>
+<div class="element">
+    <div class="element">   {{ instance.Event_Name }}    </div>
+    <div class="element">   {{ instance.Event_Start_Date }}    </div>
+    <div class="element">   {{ instance.Event_Start_Time}}    </div>
+    <div class="element">   {{ instance.Event_End_Date}}    </div>
+    <div class="element">   {{ instance.Event_End_Time}}    </div>
+    <div class="element">   {{ instance.Event_Description}}    </div>
+    <div class="element">   {{ instance.Event_Program}}    </div>
+</div>
 
-    {% if test %}
-        <div class="element">
-            <br>Opisy Pomniejszych wydarzen:
-            {% for o in test %}
-                
-                <br>
-                <div class="element">    {{ o.Show_Name }}    </div>
-                <div class="element">    {{ o.Show_Start_Date }}    </div>
-                <div class="element">    {{ o.Show_Start_Time }}    </div>
-                <div class="element">    {{ o.Show_End_Date }}    </div>
-                <div class="element">    {{ o.Show_End_Time }}    </div>
-                <div class="element">    {{ o.Show_Description }}    </div>
-
-            {% endfor %}
-        </div>
-    {% endif %}
-
-    {% if instance.Even_Owner == request.user %}
-        <a href="../../delete/{{ instance.id }}">Usun wydarzenie</a>
-        <a href="../../edit/{{ instance.id }}">Edytuj wydarzenie</a>
-    {% endif %}
+{% if instance.Even_Owner == request.user %}
+<a href="../../delete/{{ instance.id }}">Usun wydarzenie</a>
+<a href="../../edit/{{ instance.id }}">Edytuj wydarzenie</a>
+{% endif %}
 {% endblock %}
