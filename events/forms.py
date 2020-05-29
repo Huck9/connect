@@ -1,6 +1,6 @@
 from django import forms
 from django.views.generic.edit import UpdateView
-from .models import Event
+from .models import MainEvent, SmallEvent
 
 
 class DateInput(forms.DateInput):
@@ -11,7 +11,7 @@ class TimeInput(forms.TimeInput):
     input_type = 'time'
 
 
-class CreateNew(forms.Form):
+class CreateNewEvent(forms.Form):
     ev_Nam = forms.CharField(label="Nazwa Wydarzenia", max_length=30)
 
     ev_Start_Date = forms.DateField(label="Data rozpoczecia wydarzenia", widget=DateInput, required=True)
@@ -26,6 +26,12 @@ class CreateNew(forms.Form):
 
 class ModifyEvent(forms.ModelForm):
     class Meta:
-        model = Event
+        model = MainEvent
         fields = ['Event_Name', 'Event_Start_Date', 'Event_Start_Time', 'Event_End_Time', 'Event_Description',
                   'Event_Program']
+
+
+class CreateNewShow(forms.ModelForm):
+    class Meta:
+        model = SmallEvent
+        fields = "__all__"

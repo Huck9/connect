@@ -6,6 +6,6 @@ from events import models
 
 
 def home(request):
-	event = models.Event.objects.all()
+	event = models.MainEvent.objects.all()
 	return render(request, "main/index.html", {'event': event})
 

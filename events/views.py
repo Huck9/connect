@@ -1,8 +1,8 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.edit import UpdateView
-from .forms import CreateNew, ModifyEvent
-from .models import Event
+from .forms import CreateNewEvent, ModifyEvent
+from .models import MainEvent, SmallEvent
 
 
 def nr(response):
@@ -12,7 +12,7 @@ def nr(response):
 def register(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            form = CreateNew(request.POST)
+            form = CreateNewEvent(request.POST)
             if form.is_valid():
                 ev_nam = form.cleaned_data["ev_Nam"]
 
@@ -24,21 +24,23 @@ def register(request):
 
                 own = request.user
 
-                ev_Des = form.cleaned_data["ev_Description"]
-                ev_Pro = form.cleaned_data["ev_Program"]
+                ev_des = form.cleaned_data["ev_Description"]
+                ev_pro = form.cleaned_data["ev_Program"]
 
                 # ev_map = form.changed_data["ev_Map"]
                 # ev_icon = form.changed_data["ev_Icon"]
                 # Event_MapFile = ev_map, # czemu to krwa nie dziala
                 # Event_IconFile = ev_icon
 
-                t = Event(Event_Name=ev_nam, Event_Start_Date=ev_st_d, Event_Start_Time=ev_st_t,
-                          Event_End_Date=ev_end_d, Event_End_Time=ev_end_t, Even_Owner=own, Event_Description=ev_Des,Event_Program=ev_Pro)
+                t = MainEvent(Event_Name=ev_nam, Event_Start_Date=ev_st_d, Event_Start_Time=ev_st_t,
+                              Event_End_Date=ev_end_d, Event_End_Time=ev_end_t, Even_Owner=own,
+                              Event_Description=ev_des,
+                              Event_Program=ev_pro)
                 t.save()
-                print(t.id)
-            return HttpResponseRedirect("../details/"+str(t.id))
+
+            return HttpResponseRedirect("../details/" + str(t.id))
         else:
-            form = CreateNew()
+            form = CreateNewEvent()
 
         return render(request, "events/register.html", {"form": form})
     else:
@@ -46,18 +48,19 @@ def register(request):
 
 
 def details(request, i=None):
-    instance = get_object_or_404(Event, id=i)
+    instance = get_object_or_404(MainEvent, id=i)
+    # small_events = get_list_or_404(SmallEvent, Main_Event_ID=instance.id)
+    small_events = SmallEvent.objects.filter(Main_Event_ID=instance.id)
+    print(small_events)
     context = {
-        "title": instance.Event_Description,
         "instance": instance,
+        "test": small_events,
     }
     return render(request, "events/show.html", context)
 
 
 def edit(request, i=None):
-    instance = get_object_or_404(Event, id=i)
-    print(request.user)
-    print(instance.Even_Owner)
+    instance = get_object_or_404(MainEvent, id=i)
 
     if request.user == instance.Even_Owner:
         instance_form = ModifyEvent(request.POST or None, instance=instance)
@@ -70,7 +73,7 @@ def edit(request, i=None):
 
 
 def delete(request, i=None):
-    instance = get_object_or_404(Event, id=i)
+    instance = get_object_or_404(MainEvent, id=i)
     if request.user == instance.Even_Owner:
         instance.delete()
         return HttpResponse("Usunieto")
@@ -80,6 +83,3 @@ def delete(request, i=None):
 
 def suc(request):
     return HttpResponse("Działa")
-
-
-
