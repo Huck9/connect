@@ -31,7 +31,22 @@ class ModifyMainEvent(forms.ModelForm):
                   'Event_Program']
 
 
-class CreateNewSmallEvent(forms.ModelForm):
+class CreateSmallEvent(forms.Form):
+    ev_Nam = forms.CharField(label="Nazwa Wydarzenia", max_length=30)
+
+    ev_Start_Date = forms.DateField(label="Data rozpoczecia wydarzenia", widget=DateInput, required=True)
+    ev_Start_Time = forms.TimeField(label="Czas rozpoczęcia wydarzenia", widget=TimeInput, required=True)
+
+    ev_End_Date = forms.DateField(label="Data zakonczenia wydarzenia", widget=DateInput, required=True)
+    ev_End_Time = forms.TimeField(label="Czas zakonczenia wydarzenia", widget=TimeInput, required=True)
+
+    ev_Description = forms.CharField(label="Opis wydarzenia")
+    ev_Program = forms.CharField(label="Program wydarzenia")
+
+    ev_Prelegent = forms.CharField(label="Prelegent", max_length=30)
+
+
+class ModifySmallEvent(forms.ModelForm):
     class Meta:
         model = SmallEvent
         fields = "__all__"

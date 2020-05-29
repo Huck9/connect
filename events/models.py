@@ -16,6 +16,8 @@ class SmallEvent(models.Model):
 
     SmallEvent_Description = models.TextField(default="Opis")
 
+    SmallEvent_Prelegent = models.TextField(default="Prelegent")
+
     Main_Event_ID = models.ForeignKey('MainEvent', on_delete=models.CASCADE, default=1)
 
     def __str__(self):

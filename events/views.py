@@ -1,12 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
-from .forms import CreateMainEvent, ModifyMainEvent
+from .forms import CreateMainEvent, ModifyMainEvent, CreateSmallEvent, ModifySmallEvent
 from .models import MainEvent, SmallEvent
-
-
-def nr(response):
-    return HttpResponse("panel wydarzenia")
 
 
 def add_main_event(request):
@@ -14,28 +10,19 @@ def add_main_event(request):
         if request.method == "POST":
             form = CreateMainEvent(request.POST)
             if form.is_valid():
-                ev_nam = form.cleaned_data["ev_Nam"]
-
-                ev_st_d = form.cleaned_data["ev_Start_Date"]
-                ev_st_t = form.cleaned_data["ev_Start_Time"]
-
-                ev_end_d = form.cleaned_data["ev_End_Date"]
-                ev_end_t = form.cleaned_data["ev_End_Time"]
-
-                own = request.user
-
-                ev_des = form.cleaned_data["ev_Description"]
-                ev_pro = form.cleaned_data["ev_Program"]
-
                 # ev_map = form.changed_data["ev_Map"]
                 # ev_icon = form.changed_data["ev_Icon"]
                 # Event_MapFile = ev_map, # czemu to krwa nie dziala
                 # Event_IconFile = ev_icon
 
-                t = MainEvent(Event_Name=ev_nam, Event_Start_Date=ev_st_d, Event_Start_Time=ev_st_t,
-                              Event_End_Date=ev_end_d, Event_End_Time=ev_end_t, Even_Owner=own,
-                              Event_Description=ev_des,
-                              Event_Program=ev_pro)
+                t = MainEvent(Event_Name=form.cleaned_data["ev_Nam"],
+                              Event_Start_Date=form.cleaned_data["ev_Start_Date"],
+                              Event_Start_Time=form.cleaned_data["ev_Start_Time"],
+                              Event_End_Date=form.cleaned_data["ev_End_Date"],
+                              Event_End_Time=form.cleaned_data["ev_End_Time"],
+                              Even_Owner=request.user,
+                              Event_Description=form.cleaned_data["ev_Description"],
+                              Event_Program=form.cleaned_data["ev_Program"])
                 t.save()
 
             return HttpResponseRedirect("../details/" + str(t.id))
@@ -80,7 +67,34 @@ def delete_main_event(request, i=None):
 
 
 def add_small_event(request, i=None):
-    pass
+    if request.user.is_authenticated:
+        event = get_object_or_404(MainEvent, id=i)
+
+        if request.user == event.Even_Owner:
+            if request.method == "POST":
+                form = CreateSmallEvent(request.POST)
+
+                if form.is_valid():
+                    t = SmallEvent(SmallEvent_Name=form.cleaned_data["ev_Nam"],
+                                   SmallEvent_Start_Date=form.cleaned_data["ev_Start_Date"],
+                                   SmallEvent_Start_Time=form.cleaned_data["ev_Start_Time"],
+                                   SmallEvent_End_Date=form.cleaned_data["ev_End_Date"],
+                                   SmallEvent_End_Time=form.cleaned_data["ev_End_Time"],
+                                   SmallEvent_Description=form.cleaned_data["ev_Description"],
+                                   SmallEvent_Prelegent=form.cleaned_data["ev_Prelegent"],
+                                   Main_Event_ID=event)
+                    t.save()
+
+                return HttpResponseRedirect("/../events/details/" + str(i))
+            else:
+                form = CreateSmallEvent()
+
+            return render(request, "events/register.html", {"form": form})
+        else:
+            return HttpResponseRedirect("/../LoginError")
+
+    else:
+        return HttpResponseRedirect("/../LoginError")
 
 
 def suc(request):
