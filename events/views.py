@@ -1,11 +1,9 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.views.generic.edit import UpdateView
-from .forms import CreateNewEvent, ModifyEvent, RegisterToEvent
-from .models import MainEvent, SmallEvent, EventRegister, EventSmallRegister
-
 
 from .forms import CreateMainEvent, ModifyMainEvent, CreateSmallEvent, ModifySmallEvent
+from .forms import RegisterToEvent
+from .models import EventRegister, EventSmallRegister
 from .models import MainEvent, SmallEvent
 
 
@@ -125,10 +123,7 @@ def edit_small_event(request, i=None):
         return HttpResponseRedirect("/../LoginError")
 
 
-def register_on_event(request, i=None):
-    return HttpResponse("Tutaj rejestracja jak cos (╯°□°）╯︵ ┻━┻")
-    
-def registerToEvent(request, i=None):
+def register_to_event(request, i=None):
     if request.user.is_authenticated:
         instance = get_object_or_404(MainEvent, id=i)
         small_events = SmallEvent.objects.filter(Main_Event_ID=instance.id)
@@ -139,7 +134,7 @@ def registerToEvent(request, i=None):
             "form": form,
         }
         if request.method == "POST":
-            instance_form = CreateNewEvent(request.POST)
+            instance_form = CreateMainEvent(request.POST)
             if instance_form.is_valid:
                 user_name = request.POST['User_name']
                 user_surname = request.POST['User_surname']
