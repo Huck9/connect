@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic.edit import UpdateView
+from django.shortcuts import render, get_object_or_404
+
 from .forms import CreateNewEvent, ModifyEvent
 from .models import MainEvent, SmallEvent
 
@@ -49,9 +49,7 @@ def register(request):
 
 def details(request, i=None):
     instance = get_object_or_404(MainEvent, id=i)
-    # small_events = get_list_or_404(SmallEvent, Main_Event_ID=instance.id)
     small_events = SmallEvent.objects.filter(Main_Event_ID=instance.id)
-    print(small_events)
     context = {
         "instance": instance,
         "test": small_events,
