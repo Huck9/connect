@@ -18,6 +18,9 @@ class SmallEvent(models.Model):
 
     Main_Event_ID = models.ForeignKey('MainEvent', on_delete=models.CASCADE, default=1)
 
+    def __str__(self):
+        return self.Show_Name
+
 
 class MainEvent(models.Model):
     Event_Name = models.TextField(default="no-name")
