@@ -13,6 +13,9 @@ class EventRegister(models.Model):
     User_name = models.TextField(default="Imie")
     User_surname = models.TextField(default="Nazwisko")
 
+    def __str__(self):
+        return self.User_name
+
 
 class EventSmallRegister(models.Model):
     EventRegister = models.ForeignKey('EventRegister', on_delete=models.CASCADE,default=0)

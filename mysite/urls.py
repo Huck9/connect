@@ -26,5 +26,7 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('events/', include('events.urls')),
     path('LoginError/', include('register.urls')),
+    path('user/', v.showuserpanel),
+    path('user/<int:i>/<int:j>', v.userpanelid),
 
 ]

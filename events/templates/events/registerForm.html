@@ -17,19 +17,13 @@
              <br>
             {% for o in small_events %}
                 <div class="form">
-                    <input type="checkbox" value="{{ o.id }}" name="events">     {{ o.Show_Name }}
-                    <div class="element">    {{ o.Show_Description }}    </div>
+                    <input type="checkbox" value="{{ o.id }}" name="events">     {{ o.SmallEvent_Name }}
+                    <div class="element">    {{ o.SmallEvent_Description }}    </div>
                 </div>
-
-
             {% endfor %}
 
         {% endif %}
     <button type="submit" class="btn btn-success">Wyslij</button>
     </form>
         <div style="float: none;"></div>
-    {% if instance.Even_Owner == request.user %}
-        <a href="../../delete/{{ instance.id }}">Usun wydarzenie</a>
-        <a href="../../edit/{{ instance.id }}">Edytuj wydarzenie</a>
-    {% endif %}
 {% endblock %}

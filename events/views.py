@@ -14,7 +14,7 @@ def add_main_event(request):
             if form.is_valid():
                 # ev_map = form.changed_data["ev_Map"]
                 # ev_icon = form.changed_data["ev_Icon"]
-                # Event_MapFile = ev_map, # czemu to krwa nie dziala
+                # Event_MapFile = ev_map,
                 # Event_IconFile = ev_icon
 
                 t = MainEvent(Event_Name=form.cleaned_data["ev_Nam"],

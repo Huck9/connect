@@ -25,11 +25,11 @@
             <button class="btn btn-success my-2 my-sm-0" type="submit"
                     onclick="window.location.href='/events/createEvent'"> Utwórz wydarzenie
             </button>
-
-        {% endif %}
-        {% if request.user.is_authenticated %}
-            <div class="nav">  {{ request.user.username }}</div>
-            <button class="btn btn-success my-2 my-sm-0" type="submit" onclick="window.location.href='/logout'">
+            <button class="btn btn-success my-2 my-sm-0" type="submit" onclick="window.location.href='/user'">
+                Twoje Wydarzenia
+            </button>
+            <div class="nav">Jesteś zalogowany jako: {{ request.user.username }}</div>
+              <button class="btn btn-success my-2 my-sm-0" type="submit" onclick="window.location.href='/logout'">
                 Wyloguj
             </button>
         {% else %}

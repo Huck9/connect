@@ -1,0 +1,26 @@
+{% extends "main/base.html" %}
+
+{% block title %}Connect{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+     <h1>Podgląd zamówienia</h1>
+    {% for i in order %}
+        Imie zamawiającego: {{ i.User_name }}
+        <br>
+    Nazwisko zamawiającego: {{ i.User_surname }}
+    {% endfor %}
+    <br>
+    Twoje wydarzenie:<br>
+    <div class="">   {{ instance.Event_Name }}    </div>
+        <div class="">   {{ instance.Event_Start_Date }}    </div>
+        <div class="">   {{ instance.Event_Start_Time }}    </div>
+        <div class="">   {{ instance.Event_End_Date }}    </div>
+        <div class="">   {{ instance.Event_End_Time }}    </div>
+        <div class="">   {{ instance.Event_Description }}    </div>
+        <div class="">   {{ instance.Event_Program }}    </div>
+    Twoje Eventy:<br>
+    {% for i in miniorder %}
+    {{ i.SmallEvent.SmallEvent_Name }}
+    {% endfor %}
+{% endblock %}

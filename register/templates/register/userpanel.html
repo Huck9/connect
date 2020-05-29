@@ -1,0 +1,12 @@
+{% extends "main/base.html" %}
+
+{% block title %}Connect{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+     <h1>Twoje wydarzenia:</h1>
+    {% for obj in instance %}
+        <a href="/user/{{ obj.Main_Event_ID.id }}/{{ obj.id }}">{{ obj.Main_Event_ID.Event_Name }}</a>
+        <br>
+    {% endfor %}
+{% endblock %}
