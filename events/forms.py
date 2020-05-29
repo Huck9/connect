@@ -1,6 +1,6 @@
 from django import forms
 from django.views.generic.edit import UpdateView
-from .models import MainEvent, SmallEvent, EventRegister
+from .models import MainEvent, SmallEvent, EventRegister, eventOpinion
 
 
 class DateInput(forms.DateInput):
@@ -62,8 +62,13 @@ class ModifySmallEvent(forms.ModelForm):
                   "SmallEvent_Prelegent"]
         
 
-
 class RegisterToEvent(forms.ModelForm):
     class Meta:
         model = EventRegister
         fields = ['User_name', 'User_surname']
+
+
+class AddOpinion(forms.ModelForm):
+    class Meta:
+        model = eventOpinion
+        fields = ['Opinion','Name']

@@ -11,16 +11,25 @@
     Nazwisko zamawiającego: {{ i.User_surname }}
     {% endfor %}
     <br>
-    Twoje wydarzenie:<br>
-    <div class="">   {{ instance.Event_Name }}    </div>
-        <div class="">   {{ instance.Event_Start_Date }}    </div>
-        <div class="">   {{ instance.Event_Start_Time }}    </div>
-        <div class="">   {{ instance.Event_End_Date }}    </div>
-        <div class="">   {{ instance.Event_End_Time }}    </div>
-        <div class="">   {{ instance.Event_Description }}    </div>
-        <div class="">   {{ instance.Event_Program }}    </div>
-    Twoje Eventy:<br>
+    <h2>Twoje wydarzenie:</h2>
+    <div class="">Nazwa: {{ instance.Event_Name }}    </div>
+    <div class="">Data rozpoczęcia: {{ instance.Event_Start_Date }}    </div>
+    <div class="">Godzina rozpoczęcia: {{ instance.Event_Start_Time }}    </div>
+    <div class="">Data zakończenia: {{ instance.Event_End_Date }}    </div>
+    <div class="">Godzina zakończenia: {{ instance.Event_End_Time }}    </div>
+    <div class="">Opis: {{ instance.Event_Description }}    </div>
+    <div class="">Program: {{ instance.Event_Program }}    </div>
+    <button class="btn btn-success" onclick="window.location.href='/events/addopinionevent/{{ instance.id }}'">Dodaj
+            Dodaj opinie do wydarzenia
+        </button>
+    <h2>Twoje Eventy:</h2>
     {% for i in miniorder %}
-    {{ i.SmallEvent.SmallEvent_Name }}
+        <div>
+        Nazwa eventu: {{ i.SmallEvent.SmallEvent_Name }}<br>
+        <button class="btn btn-success" onclick="window.location.href='../../addSmallEvent/{{ instance.id }}'">Dodaj
+            Dodaj opinie do eventu
+        </button>
+        </div>
+        </div>
     {% endfor %}
 {% endblock %}

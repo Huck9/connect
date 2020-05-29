@@ -22,6 +22,12 @@ class EventSmallRegister(models.Model):
     SmallEvent = models.ForeignKey('SmallEvent', on_delete=models.CASCADE, default=1)
 
 
+class eventOpinion(models.Model):
+    Main_Event_ID = models.ForeignKey('MainEvent', on_delete=models.CASCADE, default=1)
+    Opinion = models.TextField(max_length=250)
+    Name = models.TextField(max_length=100,default='User')
+
+
 class SmallEvent(models.Model):
     SmallEvent_Name = models.TextField(default="Small event")
 

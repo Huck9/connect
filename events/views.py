@@ -2,8 +2,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
 from .forms import CreateMainEvent, ModifyMainEvent, CreateSmallEvent, ModifySmallEvent
-from .forms import RegisterToEvent
-from .models import EventRegister, EventSmallRegister
+from .forms import RegisterToEvent, AddOpinion
+from .models import EventRegister, EventSmallRegister, eventOpinion
 from .models import MainEvent, SmallEvent
 
 
@@ -36,12 +36,24 @@ def add_main_event(request):
         return HttpResponseRedirect("/../LoginError")
 
 
+def deleteOpinion(request,i=None):
+    if request.user.is_authenticated:
+        instance = get_object_or_404(eventOpinion, id=i)
+        if request.user == instance.Main_Event_ID.Even_Owner:
+            instance.delete()
+            return render(request, 'events/deleteinfo.html', {'delete_info': "Usunieto Opinie"})
+        else:
+            return HttpResponseRedirect("/../LoginError")
+
+
 def details_main_event(request, i=None):
     instance = get_object_or_404(MainEvent, id=i)
     small_events = SmallEvent.objects.filter(Main_Event_ID=instance.id)
+    eventOpinion2 = eventOpinion.objects.filter(Main_Event_ID=instance.id)
     context = {
         "instance": instance,
         "small_events": small_events,
+        "eventOpinion": eventOpinion2,
     }
     return render(request, "events/show.html", context)
 
@@ -155,3 +167,16 @@ def register_to_event(request, i=None):
         return render(request, "events/registerForm.html", context)
     else:
         return HttpResponseRedirect("/../LoginError")
+
+
+def add_opinion(request,i=None):
+    instance = get_object_or_404(MainEvent, id=i)
+    if request.method == 'POST':
+        model = eventOpinion()
+        model.Opinion = request.POST['Opinion']
+        model.Name = request.POST['Name']
+        model.Main_Event_ID = instance
+        model.save()
+        return HttpResponseRedirect("/")
+    form = AddOpinion()
+    return render(request, "events/addOpinion.html", {'form': form})

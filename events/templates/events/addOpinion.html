@@ -1,0 +1,16 @@
+{% extends "main/base.html" %}
+
+{% block title %}Connect{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+        <form method="POST">
+            {% csrf_token %}
+            <h1>Dodaj opinie</h1>
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-success">Dodaj opinie</button>
+        </form>
+
+{% endblock %}

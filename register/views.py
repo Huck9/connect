@@ -25,7 +25,13 @@ def login_error(request):  # usun _
 def showuserpanel(request):
     if request.user.is_authenticated:
         instance = EventRegister.objects.all().filter(User_Add=request.user)
-        return render(request, "register/userpanel.html", {'instance': instance})
+        events = MainEvent.objects.all().filter(Even_Owner=request.user)
+        print(events)
+        field = {
+            "instance": instance,
+            "events": events,
+        }
+        return render(request, "register/userpanel.html", field)
     else:
         return HttpResponseRedirect("/../LoginError")
 
@@ -35,6 +41,7 @@ def userpanelid(request, i=None,j=None):
         instance = get_object_or_404(MainEvent, id=i)
         order = EventRegister.objects.all().filter(Main_Event_ID=instance)
         order = order.filter(pk=j)
+
         miniorder = EventSmallRegister.objects.all().filter(EventRegister=order[0])
         field = {
             "instance": instance,
