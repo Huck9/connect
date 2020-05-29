@@ -1,6 +1,6 @@
 from django import forms
-
-from .models import MainEvent, SmallEvent
+from django.views.generic.edit import UpdateView
+from .models import MainEvent, SmallEvent, EventRegister
 
 
 class DateInput(forms.DateInput):
@@ -60,3 +60,10 @@ class ModifySmallEvent(forms.ModelForm):
                   "SmallEvent_End_Time",
                   "SmallEvent_Description",
                   "SmallEvent_Prelegent"]
+        
+
+
+class RegisterToEvent(forms.ModelForm):
+    class Meta:
+        model = EventRegister
+        fields = ['User_name', 'User_surname']

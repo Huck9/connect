@@ -8,7 +8,6 @@ urlpatterns = [
     path("delete/<int:i>/", views.delete_main_event, name="Usuniecie Event"),
     path("addSmallEvent/<int:i>/", views.add_small_event, name="Dodanie Small Event"),
     path("deleteSmallEvent/<int:i>/", views.delete_small_event, name="Usuniecie Small Event"),
-    path("editSmallEvent/<int:i>/", views.edit_small_event, name="Edycja Small Event"),
-
-    path("Register/<int:i>/", views.register_on_event, name="Zapis na Event"),
+    path("editSmallEvent/<int:i>/", views.edit_small_event, name="Edycja Small Event"),    
+    path("details/<int:i>/register", views.registerToEvent, name="registertoevent"),
 ]

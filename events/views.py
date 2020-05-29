@@ -1,5 +1,9 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.views.generic.edit import UpdateView
+from .forms import CreateNewEvent, ModifyEvent, RegisterToEvent
+from .models import MainEvent, SmallEvent, EventRegister, EventSmallRegister
+
 
 from .forms import CreateMainEvent, ModifyMainEvent, CreateSmallEvent, ModifySmallEvent
 from .models import MainEvent, SmallEvent
@@ -39,7 +43,7 @@ def details_main_event(request, i=None):
     small_events = SmallEvent.objects.filter(Main_Event_ID=instance.id)
     context = {
         "instance": instance,
-        "test": small_events,
+        "small_events": small_events,
     }
     return render(request, "events/show.html", context)
 
@@ -123,3 +127,36 @@ def edit_small_event(request, i=None):
 
 def register_on_event(request, i=None):
     return HttpResponse("Tutaj rejestracja jak cos (╯°□°）╯︵ ┻━┻")
+    
+def registerToEvent(request, i=None):
+    if request.user.is_authenticated:
+        instance = get_object_or_404(MainEvent, id=i)
+        small_events = SmallEvent.objects.filter(Main_Event_ID=instance.id)
+        form = RegisterToEvent()
+        context = {
+            "instance": instance,
+            "small_events": small_events,
+            "form": form,
+        }
+        if request.method == "POST":
+            instance_form = CreateNewEvent(request.POST)
+            if instance_form.is_valid:
+                user_name = request.POST['User_name']
+                user_surname = request.POST['User_surname']
+                model = EventRegister()
+                model.User_Add = request.user
+                model.User_name = request.POST['User_name']
+                model.User_surname = request.POST['User_surname']
+                model.Main_Event_ID = instance
+                model.save()
+                listEvent = request.POST.getlist('events')
+                for i in listEvent:
+                    model2 = EventSmallRegister()
+                    model2.EventRegister = model
+                    model2.SmallEvent = SmallEvent.objects.get(pk=i)
+                    model2.save()
+            return render(request, "events/show.html", context)
+
+        return render(request, "events/registerForm.html", context)
+    else:
+        return HttpResponseRedirect("/../LoginError")

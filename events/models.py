@@ -4,6 +4,20 @@ from django.contrib.auth.models import User
 
 
 # Create your models here.
+class EventRegister(models.Model):
+    User_Add = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        default='1')
+    Main_Event_ID = models.ForeignKey('MainEvent', on_delete=models.CASCADE, default=1)
+    User_name = models.TextField(default="Imie")
+    User_surname = models.TextField(default="Nazwisko")
+
+
+class EventSmallRegister(models.Model):
+    EventRegister = models.ForeignKey('EventRegister', on_delete=models.CASCADE,default=0)
+    SmallEvent = models.ForeignKey('SmallEvent', on_delete=models.CASCADE, default=1)
+
 
 class SmallEvent(models.Model):
     SmallEvent_Name = models.TextField(default="Small event")
@@ -48,3 +62,5 @@ class MainEvent(models.Model):
 
     def __str__(self):
         return self.Event_Name
+
+

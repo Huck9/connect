@@ -16,11 +16,11 @@
         <div class="element">   {{ instance.Event_Program }}    </div>
     </div>
 
-    {% if test %}
+    {% if small_events %}
         <div class="element">
             <br>Opisy Pomniejszych wydarzen:
-            {% for o in test %}
-
+            {% for o in small_events %}
+                
                 <br>
                 <div class="element">    {{ o.SmallEvent_Name }}    </div>
                 <div class="element">    {{ o.SmallEvent_Start_Date }}    </div>
@@ -58,4 +58,8 @@
         </button>
     {% endif %}
 
+        
+    {% if user.is_authenticated %}
+        <button class="btn btn-success"><a href="/events/details/{{ instance.id }}/register">Zarejestruj</a></button>
+    {% endif %}
 {% endblock %}
