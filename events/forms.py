@@ -27,7 +27,11 @@ class CreateMainEvent(forms.Form):
 class ModifyMainEvent(forms.ModelForm):
     class Meta:
         model = MainEvent
-        fields = ['Event_Name', 'Event_Start_Date', 'Event_Start_Time', 'Event_End_Time', 'Event_Description',
+        fields = ['Event_Name',
+                  'Event_Start_Date',
+                  'Event_Start_Time',
+                  'Event_End_Time',
+                  'Event_Description',
                   'Event_Program']
 
 
@@ -49,4 +53,10 @@ class CreateSmallEvent(forms.Form):
 class ModifySmallEvent(forms.ModelForm):
     class Meta:
         model = SmallEvent
-        fields = "__all__"
+        fields = ["SmallEvent_Name",
+                  "SmallEvent_Start_Date",
+                  "SmallEvent_Start_Time",
+                  "SmallEvent_End_Date",
+                  "SmallEvent_End_Time",
+                  "SmallEvent_Description",
+                  "SmallEvent_Prelegent"]

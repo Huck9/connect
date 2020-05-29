@@ -25,7 +25,7 @@ def add_main_event(request):
                               Event_Program=form.cleaned_data["ev_Program"])
                 t.save()
 
-            return HttpResponseRedirect("../details/" + str(t.id))
+            return HttpResponseRedirect("../events/details/" + str(t.id))
         else:
             form = CreateMainEvent()
 
@@ -61,7 +61,7 @@ def delete_main_event(request, i=None):
     instance = get_object_or_404(MainEvent, id=i)
     if request.user == instance.Even_Owner:
         instance.delete()
-        return HttpResponse("Usunieto")
+        return render(request, 'events/deleteinfo.html', {'delete_info': "Usunieto Wydarzenie"})
     else:
         return HttpResponseRedirect("/../LoginError")
 
@@ -93,6 +93,30 @@ def add_small_event(request, i=None):
         else:
             return HttpResponseRedirect("/../LoginError")
 
+    else:
+        return HttpResponseRedirect("/../LoginError")
+
+
+def delete_small_event(request, i=None):
+    small_eve = get_object_or_404(SmallEvent, id=i)
+    main_eve = get_object_or_404(MainEvent, id=small_eve.Main_Event_ID.id)
+    if request.user == main_eve.Even_Owner:
+        small_eve.delete()
+        return render(request, 'events/deleteinfo.html', {'delete_info': "Usunieto PodWydarzenie"})
+    else:
+        return HttpResponseRedirect("/../LoginError")
+
+
+def edit_small_event(request, i=None):
+    small_eve = get_object_or_404(SmallEvent, id=i)
+    main_eve = get_object_or_404(MainEvent, id=small_eve.Main_Event_ID.id)
+
+    if request.user == main_eve.Even_Owner:
+        small_eve_form = ModifySmallEvent(request.POST or None, instance=small_eve)
+        if small_eve_form.is_valid():
+            small_eve_form.save()
+
+        return render(request, 'events/upload.html', {'upload_form': small_eve_form})
     else:
         return HttpResponseRedirect("/../LoginError")
 

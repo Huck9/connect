@@ -29,16 +29,33 @@
                 <div class="element">    {{ o.SmallEvent_End_Time }}    </div>
                 <div class="element">    {{ o.SmallEvent_Description }}    </div>
 
+                {% if instance.Even_Owner == request.user %}
+                    <button class="btn btn-success" onclick="window.location.href='../../deleteSmallEvent/{{ o.id }}'">
+                        Usun wydarzenie
+                    </button>
+                    <button class="btn btn-success" onclick="window.location.href='../../editSmallEvent/{{ o.id }}'">
+                        Edytuj wydarzenie
+                    </button>
+                {% endif %}
+
             {% endfor %}
         </div>
     {% endif %}
 
     {% if instance.Even_Owner == request.user %}
-        <a href="../../delete/{{ instance.id }}">Usun wydarzenie</a>
-        <a href="../../edit/{{ instance.id }}">Edytuj wydarzenie</a>
-        <a href="../../addSmallEvent/{{ instance.id }}">Dodaj Mini Event</a>
+        <button class="btn btn-success" onclick="window.location.href='../../delete/{{ instance.id }}'">Usun
+            wydarzenie
+        </button>
+        <button class="btn btn-success" onclick="window.location.href='../../edit/{{ instance.id }}'">Edytuj
+            wydarzenie
+        </button>
+        <button class="btn btn-success" onclick="window.location.href='../../addSmallEvent/{{ instance.id }}'">Dodaj
+            Mini Event
+        </button>
     {% else %}
-        <a href="../../Register/{{ instance.id }}">Zarejestruj na wydarzenie</a>
+        <button class="btn btn-success" onclick="window.location.href='../../Register/{{ instance.id }}'">Zarejestruj na
+            wydarzenie
+        </button>
     {% endif %}
 
 {% endblock %}
