@@ -1,6 +1,6 @@
 from django import forms
 from django.views.generic.edit import UpdateView
-from .models import MainEvent, SmallEvent
+from .models import MainEvent, SmallEvent, EventRegister
 
 
 class DateInput(forms.DateInput):
@@ -35,3 +35,9 @@ class CreateNewShow(forms.ModelForm):
     class Meta:
         model = SmallEvent
         fields = "__all__"
+
+
+class RegisterToEvent(forms.ModelForm):
+    class Meta:
+        model = EventRegister
+        fields = ['User_name', 'User_surname']
