@@ -22,15 +22,19 @@
         <a class="navbar-brand" href="/">Navbar</a>
 
         {% if request.user.is_authenticated %}
-            <button class="btn btn-success my-2 my-sm-0" type="submit"><a href="/events/createEvent">Utwórz wydarzenie</a>
+            <button class="btn btn-success my-2 my-sm-0" type="submit"
+                    onclick="window.location.href='/events/createEvent'"> Utwórz wydarzenie
             </button>
 
         {% endif %}
         {% if request.user.is_authenticated %}
             <div class="nav">  {{ request.user.username }}</div>
-            <button class="btn btn-success my-2 my-sm-0" type="submit"><a href="/logout">Wyloguj</a></button>
+            <button class="btn btn-success my-2 my-sm-0" type="submit" onclick="window.location.href='/logout'">
+                Wyloguj
+            </button>
         {% else %}
-            <button class="btn btn-success my-2 my-sm-0" type="submit"><a href="/login">Zaloguj</a></button>
+            <button class="btn btn-success my-2 my-sm-0" type="submit" onclick="window.location.href='/login'">Zaloguj
+            </button>
         {% endif %}
 
     </nav>
