@@ -29,7 +29,7 @@ def add_main_event(request):
         else:
             form = CreateMainEvent()
 
-        return render(request, "events/register.html", {"form": form})
+        return render(request, "events/createEvent.html", {"form": form})
     else:
         return HttpResponseRedirect("/../LoginError")
 
@@ -89,7 +89,7 @@ def add_small_event(request, i=None):
             else:
                 form = CreateSmallEvent()
 
-            return render(request, "events/register.html", {"form": form})
+            return render(request, "events/createEvent.html", {"form": form})
         else:
             return HttpResponseRedirect("/../LoginError")
 
@@ -97,5 +97,5 @@ def add_small_event(request, i=None):
         return HttpResponseRedirect("/../LoginError")
 
 
-def suc(request):
-    return HttpResponse("Działa")
+def register_on_event(request, i=None):
+    return HttpResponse("Tutaj rejestracja jak cos (╯°□°）╯︵ ┻━┻")

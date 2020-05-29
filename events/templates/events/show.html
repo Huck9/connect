@@ -20,7 +20,7 @@
         <div class="element">
             <br>Opisy Pomniejszych wydarzen:
             {% for o in test %}
-                
+
                 <br>
                 <div class="element">    {{ o.SmallEvent_Name }}    </div>
                 <div class="element">    {{ o.SmallEvent_Start_Date }}    </div>
@@ -37,5 +37,8 @@
         <a href="../../delete/{{ instance.id }}">Usun wydarzenie</a>
         <a href="../../edit/{{ instance.id }}">Edytuj wydarzenie</a>
         <a href="../../addSmallEvent/{{ instance.id }}">Dodaj Mini Event</a>
+    {% else %}
+        <a href="../../Register/{{ instance.id }}">Zarejestruj na wydarzenie</a>
     {% endif %}
+
 {% endblock %}
