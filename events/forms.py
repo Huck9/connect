@@ -11,7 +11,7 @@ class TimeInput(forms.TimeInput):
     input_type = 'time'
 
 
-class CreateNewEvent(forms.Form):
+class CreateMainEvent(forms.Form):
     ev_Nam = forms.CharField(label="Nazwa Wydarzenia", max_length=30)
 
     ev_Start_Date = forms.DateField(label="Data rozpoczecia wydarzenia", widget=DateInput, required=True)
@@ -24,14 +24,14 @@ class CreateNewEvent(forms.Form):
     ev_Program = forms.CharField(label="Program wydarzenia")
 
 
-class ModifyEvent(forms.ModelForm):
+class ModifyMainEvent(forms.ModelForm):
     class Meta:
         model = MainEvent
         fields = ['Event_Name', 'Event_Start_Date', 'Event_Start_Time', 'Event_End_Time', 'Event_Description',
                   'Event_Program']
 
 
-class CreateNewShow(forms.ModelForm):
+class CreateNewSmallEvent(forms.ModelForm):
     class Meta:
         model = SmallEvent
         fields = "__all__"

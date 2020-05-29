@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
-from .forms import CreateNewEvent, ModifyEvent
+from .forms import CreateMainEvent, ModifyMainEvent
 from .models import MainEvent, SmallEvent
 
 
@@ -9,10 +9,10 @@ def nr(response):
     return HttpResponse("panel wydarzenia")
 
 
-def register(request):
+def add_main_event(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            form = CreateNewEvent(request.POST)
+            form = CreateMainEvent(request.POST)
             if form.is_valid():
                 ev_nam = form.cleaned_data["ev_Nam"]
 
@@ -40,14 +40,14 @@ def register(request):
 
             return HttpResponseRedirect("../details/" + str(t.id))
         else:
-            form = CreateNewEvent()
+            form = CreateMainEvent()
 
         return render(request, "events/register.html", {"form": form})
     else:
         return HttpResponseRedirect("/../LoginError")
 
 
-def details(request, i=None):
+def details_main_event(request, i=None):
     instance = get_object_or_404(MainEvent, id=i)
     small_events = SmallEvent.objects.filter(Main_Event_ID=instance.id)
     context = {
@@ -57,11 +57,11 @@ def details(request, i=None):
     return render(request, "events/show.html", context)
 
 
-def edit(request, i=None):
+def edit_main_event(request, i=None):
     instance = get_object_or_404(MainEvent, id=i)
 
     if request.user == instance.Even_Owner:
-        instance_form = ModifyEvent(request.POST or None, instance=instance)
+        instance_form = ModifyMainEvent(request.POST or None, instance=instance)
         if instance_form.is_valid():
             instance_form.save()
 
@@ -70,13 +70,17 @@ def edit(request, i=None):
         return HttpResponseRedirect("/../LoginError")
 
 
-def delete(request, i=None):
+def delete_main_event(request, i=None):
     instance = get_object_or_404(MainEvent, id=i)
     if request.user == instance.Even_Owner:
         instance.delete()
         return HttpResponse("Usunieto")
     else:
         return HttpResponseRedirect("/../LoginError")
+
+
+def add_small_event(request, i=None):
+    pass
 
 
 def suc(request):

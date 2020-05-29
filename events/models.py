@@ -6,20 +6,20 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class SmallEvent(models.Model):
-    Show_Name = models.TextField(default="Small event")
+    SmallEvent_Name = models.TextField(default="Small event")
 
-    Show_Start_Date = models.DateField(default="2020-01-01")
-    Show_Start_Time = models.TimeField(default="00:00:00")
-    #
-    Show_End_Date = models.DateField(default="2020-01-01")
-    Show_End_Time = models.TimeField(default="00:00:00")
+    SmallEvent_Start_Date = models.DateField(default="2020-01-01")
+    SmallEvent_Start_Time = models.TimeField(default="00:00:00")
 
-    Show_Description = models.TextField(default="Opis")
+    SmallEvent_End_Date = models.DateField(default="2020-01-01")
+    SmallEvent_End_Time = models.TimeField(default="00:00:00")
+
+    SmallEvent_Description = models.TextField(default="Opis")
 
     Main_Event_ID = models.ForeignKey('MainEvent', on_delete=models.CASCADE, default=1)
 
     def __str__(self):
-        return self.Show_Name
+        return self.SmallEvent_Name
 
 
 class MainEvent(models.Model):

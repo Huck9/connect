@@ -22,12 +22,12 @@
             {% for o in test %}
                 
                 <br>
-                <div class="element">    {{ o.Show_Name }}    </div>
-                <div class="element">    {{ o.Show_Start_Date }}    </div>
-                <div class="element">    {{ o.Show_Start_Time }}    </div>
-                <div class="element">    {{ o.Show_End_Date }}    </div>
-                <div class="element">    {{ o.Show_End_Time }}    </div>
-                <div class="element">    {{ o.Show_Description }}    </div>
+                <div class="element">    {{ o.SmallEvent_Name }}    </div>
+                <div class="element">    {{ o.SmallEvent_Start_Date }}    </div>
+                <div class="element">    {{ o.SmallEvent_Start_Time }}    </div>
+                <div class="element">    {{ o.SmallEvent_End_Date }}    </div>
+                <div class="element">    {{ o.SmallEvent_End_Time }}    </div>
+                <div class="element">    {{ o.SmallEvent_Description }}    </div>
 
             {% endfor %}
         </div>
@@ -36,5 +36,6 @@
     {% if instance.Even_Owner == request.user %}
         <a href="../../delete/{{ instance.id }}">Usun wydarzenie</a>
         <a href="../../edit/{{ instance.id }}">Edytuj wydarzenie</a>
+        <a href="../../addSmallEvent/{{ instance.id }}">Dodaj Mini Event</a>
     {% endif %}
 {% endblock %}
