@@ -72,10 +72,16 @@
                 <div>{{ i.Opinion }}</div>
                 Napisał: {{ i.Name }}
             </div>
-            {% if instance.Even_Owner == request.user %}
+            {% if instance.Even_Owner == request.user or i.User_Add == request.user %}
                 <button class="btn btn-success"
                         onclick="window.location.href='../../deleteopinion/{{ i.id }}'">
                     Usuń opinie
+                </button>
+            {% endif %}
+            {% if i.User_Add == request.user %}
+                <button class="btn btn-success"
+                        onclick="window.location.href='../../editopinion/{{ i.id }}'">
+                    Edytuj opinie
                 </button>
             {% endif %}
             <br>

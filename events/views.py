@@ -36,24 +36,14 @@ def add_main_event(request):
         return HttpResponseRedirect("/../LoginError")
 
 
-def deleteOpinion(request,i=None):
-    if request.user.is_authenticated:
-        instance = get_object_or_404(eventOpinion, id=i)
-        if request.user == instance.Main_Event_ID.Even_Owner:
-            instance.delete()
-            return render(request, 'events/deleteinfo.html', {'delete_info': "Usunieto Opinie"})
-        else:
-            return HttpResponseRedirect("/../LoginError")
-
-
 def details_main_event(request, i=None):
     instance = get_object_or_404(MainEvent, id=i)
     small_events = SmallEvent.objects.filter(Main_Event_ID=instance.id)
-    eventOpinion2 = eventOpinion.objects.filter(Main_Event_ID=instance.id)
+    event_opinion = eventOpinion.objects.filter(Main_Event_ID=instance.id)
     context = {
         "instance": instance,
         "small_events": small_events,
-        "eventOpinion": eventOpinion2,
+        "eventOpinion": event_opinion,
     }
     return render(request, "events/show.html", context)
 
@@ -169,14 +159,44 @@ def register_to_event(request, i=None):
         return HttpResponseRedirect("/../LoginError")
 
 
-def add_opinion(request,i=None):
+def add_opinion(request, i=None):
     instance = get_object_or_404(MainEvent, id=i)
-    if request.method == 'POST':
-        model = eventOpinion()
-        model.Opinion = request.POST['Opinion']
-        model.Name = request.POST['Name']
-        model.Main_Event_ID = instance
-        model.save()
-        return HttpResponseRedirect("/")
-    form = AddOpinion()
-    return render(request, "events/addOpinion.html", {'form': form})
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            model = eventOpinion()
+            model.Opinion = request.POST['Opinion']
+            model.Name = request.POST['Name']
+            model.Main_Event_ID = instance
+            model.User_Add = request.user
+            model.save()
+            return HttpResponseRedirect("/")
+        form = AddOpinion()
+        return render(request, "events/addOpinion.html", {'form': form})
+    else:
+        return HttpResponseRedirect("/../LoginError")
+
+
+def delete_opinion(request, i=None):
+    if request.user.is_authenticated:
+        instance = get_object_or_404(eventOpinion, id=i)
+        if request.user == instance.Main_Event_ID.Even_Owner:
+            instance.delete()
+            return render(request, 'events/deleteinfo.html', {'delete_info': "Usunieto Opinie"})
+        else:
+            return HttpResponseRedirect("/../LoginError")
+
+
+def edit_opinion(request, i=None):
+    if request.user.is_authenticated:
+        instance = get_object_or_404(eventOpinion, id=i)
+        if instance.User_Add == request.user:
+            instance_form = AddOpinion(request.POST or None, instance=instance)
+            if instance_form.is_valid():
+                instance_form.save()
+                return HttpResponseRedirect("/../events/details/" + str(instance.Main_Event_ID.id))
+            return render(request, 'events/editopinion.html', {'form': instance_form})
+    else:
+        return HttpResponseRedirect("/../LoginError")
+
+
+

@@ -1,0 +1,16 @@
+{% extends "main/base.html" %}
+
+{% block title %}Connect{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+        <form method="POST">
+            {% csrf_token %}
+            <h1>Edytuj opinie</h1>
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-success">Edytuj</button>
+        </form>
+
+{% endblock %}
