@@ -19,14 +19,14 @@
     <div class="">Godzina zakończenia: {{ instance.Event_End_Time }}    </div>
     <div class="">Opis: {{ instance.Event_Description }}    </div>
     <div class="">Program: {{ instance.Event_Program }}    </div>
-    <button class="btn btn-success" onclick="window.location.href='/events/addopinionevent/{{ instance.id }}'">Dodaj
+    <button class="btn btn-success" onclick="window.location.href='/events/addopinionevent/{{ instance.id }}'">
             Dodaj opinie do wydarzenia
         </button>
     <h2>Twoje Eventy:</h2>
     {% for i in miniorder %}
         <div>
         Nazwa eventu: {{ i.SmallEvent.SmallEvent_Name }}<br>
-      
+
         </div>
         </div>
     {% endfor %}
