@@ -60,7 +60,7 @@ class ModifySmallEvent(forms.ModelForm):
                   "SmallEvent_End_Time",
                   "SmallEvent_Description",
                   "SmallEvent_Prelegent"]
-        
+
 
 class RegisterToEvent(forms.ModelForm):
     class Meta:
@@ -71,4 +71,6 @@ class RegisterToEvent(forms.ModelForm):
 class AddOpinion(forms.ModelForm):
     class Meta:
         model = eventOpinion
-        fields = ['Opinion','Name']
+        fields = ['Opinion', 'Name']
+
+

@@ -3,8 +3,7 @@ from django.shortcuts import render, get_object_or_404
 
 from .forms import CreateMainEvent, ModifyMainEvent, CreateSmallEvent, ModifySmallEvent
 from .forms import RegisterToEvent, AddOpinion
-from .models import EventRegister, EventSmallRegister, eventOpinion
-from .models import MainEvent, SmallEvent
+from .models import EventRegister, EventSmallRegister, eventOpinion, MainEvent, SmallEvent
 
 
 def add_main_event(request):
@@ -44,6 +43,7 @@ def details_main_event(request, i=None):
         "instance": instance,
         "small_events": small_events,
         "eventOpinion": event_opinion,
+
     }
     return render(request, "events/show.html", context)
 
@@ -197,6 +197,4 @@ def edit_opinion(request, i=None):
             return render(request, 'events/editopinion.html', {'form': instance_form})
     else:
         return HttpResponseRedirect("/../LoginError")
-
-
 
