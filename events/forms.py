@@ -72,5 +72,3 @@ class AddOpinion(forms.ModelForm):
     class Meta:
         model = eventOpinion
         fields = ['Opinion', 'Name']
-
-
