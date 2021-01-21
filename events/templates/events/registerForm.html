@@ -4,9 +4,9 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div class="mypanel">
 
-
-    <div class="element"> Rejestracja na wydarzenie {{ instance.Event_Name }}    </div>
+    <h2 class=""> Rejestracja na wydarzenie {{ instance.Event_Name }}    </h2>
     <form method="post">
     {% csrf_token %}
         {{ form|crispy }}
@@ -26,4 +26,5 @@
     <button type="submit" class="btn btn-success">Wyslij</button>
     </form>
         <div style="float: none;"></div>
+</div>
 {% endblock %}

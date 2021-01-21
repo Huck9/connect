@@ -1,0 +1,18 @@
+{% extends "main/base.html" %}
+
+{% block title %}Connect{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="mypanel">
+    <h1>Osoby zapisane</h1>
+    <h2>Ilość zarejestrowanych: {{ event_register_cnt }}</h2>
+    <h2>Imię i nazwisko: </h2>
+    {% for i in event_register %}
+
+        <a>{{ i.User_name }} {{ i.User_surname }} </a><br>
+
+    {% endfor %}
+
+    </div>
+{% endblock %}

@@ -4,14 +4,20 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-     <h1>Twoje zamówienia:</h1>
-    {% for obj in instance %}
-        <a href="/user/{{ obj.Main_Event_ID.id }}/{{ obj.id }}">{{ obj.Main_Event_ID.Event_Name }}</a>
-        <br>
-    {% endfor %}
-    <h1>Twoje wydarzenia:</h1>
-    {% for i in events %}
-    <a href="/events/details/{{ i.pk }}">{{ i.Event_Name }}</a>
-        <br>
-    {% endfor %}
+    <div class="container mypanel">
+        <h1 class="myorder">Twoje zamówienia:</h1>
+        {% for obj in instance %}
+            <h3>
+            <a href="/user/{{ obj.Main_Event_ID.id }}/{{ obj.id }}">{{ obj.Main_Event_ID.Event_Name }}</a>
+            <br>
+            </h3>
+        {% endfor %}
+        <h1 class="myevents">Twoje wydarzenia:</h1>
+        {% for i in events %}
+            <h3>
+            <a href="/events/details/{{ i.pk }}">{{ i.Event_Name }}</a>
+            <br>
+            </h3>
+        {% endfor %}
+    </div>
 {% endblock %}

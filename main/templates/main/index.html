@@ -4,9 +4,18 @@
 
 
 {% block content %}
-    <h1>Dostępne wydarzenia:</h1>
-    {% for fields in event %}
-        <h2><a href="/events/details/{{ fields.pk }}">{{ fields.Event_Name }}</a></h2>
+    <div class="mainContainer">
+        <h1 class="h1main">Witaj na stronie do zarządzania wydarzeniami</h1>
+{% if user.is_authenticated %}
 
-    {% endfor %}
+    {% else %}
+            <h2 class="h2main">Zaloguj się aby zarejestrować się na wydarzenie</h2>
+{% endif %}
+
+        <h1 class="eventmain">Dostępne wydarzenia:</h1>
+        {% for fields in event %}
+            <h2><a class="events" href="/events/details/{{ fields.pk }}">{{ fields.Event_Name }}</a></h2>
+
+        {% endfor %}
+    </div>
 {% endblock %}

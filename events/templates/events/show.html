@@ -4,16 +4,19 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div class="eventsMain">
     {% if instance.Even_Owner == request.user %}
-        <button class="btn btn-success" onclick="window.location.href='../../delete/{{ instance.id }}'">Usun
-            wydarzenie
-        </button>
-        <button class="btn btn-success" onclick="window.location.href='../../edit/{{ instance.id }}'">Edytuj
-            wydarzenie
-        </button>
-        <button class="btn btn-success" onclick="window.location.href='../../addSmallEvent/{{ instance.id }}'">Dodaj
-            Mini Event
-        </button>
+        <div class="adminButtons">
+            <button class="btn btn-success" onclick="window.location.href='../../delete/{{ instance.id }}'">Usun
+                wydarzenie
+            </button>
+            <button class="btn btn-success" onclick="window.location.href='../../edit/{{ instance.id }}'">Edytuj
+                wydarzenie
+            </button>
+            <button class="btn btn-success" onclick="window.location.href='../../addSmallEvent/{{ instance.id }}'">Dodaj
+                Mini Event
+            </button>
+        </div>
     {% else %}
 
     {% endif %}
@@ -25,7 +28,7 @@
             wydarzenie
         </button>
     {% endif %}
-    <div class="element">
+    <div class="eventdata">
         <h2>Wydarzenie {{ instance.Event_Name }} </h2>
 
         <div class="">Data rozpoczęcia: {{ instance.Event_Start_Date }}    </div>
@@ -34,48 +37,49 @@
         <div class="">Godzina zakończenia: {{ instance.Event_End_Time }}    </div>
         <div class="">Opis: {{ instance.Event_Description }}    </div>
         <div class="">Program: {{ instance.Event_Program }}    </div>
-        <div class="">Program: {{ instance.Event_Program }}    </div>
+
     </div>
 
     {% if small_events %}
-        <div class="element">
+        <div class="opinion">
             <h2>Eventy</h2>
             {% for o in small_events %}
-                <div class="eventsmall">
+                <div class="">
 
 
-                    <div class="element">    {{ o.SmallEvent_Name }}    </div>
-                    <div class="element">    {{ o.SmallEvent_Start_Date }}    </div>
-                    <div class="element">    {{ o.SmallEvent_Start_Time }}    </div>
-                    <div class="element">    {{ o.SmallEvent_End_Date }}    </div>
-                    <div class="element">    {{ o.SmallEvent_End_Time }}    </div>
-                    <div class="element">    {{ o.SmallEvent_Description }}    </div>
+                    <div class="">  Nazwa:  {{ o.SmallEvent_Name }}    </div>
+                    <div class="">  Data startu:  {{ o.SmallEvent_Start_Date }}     {{ o.SmallEvent_Start_Time }}  </div>
+
+                    <div class="">  Data zakończenia:  {{ o.SmallEvent_End_Date }}   {{ o.SmallEvent_End_Time }}  </div>
+
+                    <div class="">  Opis:  {{ o.SmallEvent_Description }}    </div>
 
                     {% if instance.Even_Owner == request.user %}
                         <button class="btn btn-success"
                                 onclick="window.location.href='../../deleteSmallEvent/{{ o.id }}'">
-                            Usun wydarzenie
+                            Usuń event
                         </button>
                         <button class="btn btn-success"
                                 onclick="window.location.href='../../editSmallEvent/{{ o.id }}'">
-                            Edytuj wydarzenie
+                            Edytuj event
                         </button>
                     {% endif %}
                 </div>
             {% endfor %}
         </div>
     {% endif %}
-    <h1>Opinie o wydarzeniu:</h1>
-    <div>
+
+    <div class="opinion">
+        <h1>Opinie o wydarzeniu:</h1>
         {% for i in eventOpinion %}
-            <div class="opinion">
+            <div class="opiniontext">
                 <div>{{ i.Opinion }}</div>
                 Napisał: {{ i.Name }}
             </div>
             {% if instance.Even_Owner == request.user or i.User_Add == request.user %}
                 <button class="btn btn-success"
                         onclick="window.location.href='../../deleteopinion/{{ i.id }}'">
-                    Usuń opinie
+                    Usuń opinię
                 </button>
             {% endif %}
             {% if i.User_Add == request.user %}
@@ -85,7 +89,17 @@
                 </button>
             {% endif %}
             <br>
-            </div>
+
         {% endfor %}
+</div>
+<h1> Ilość osób zapisanych: {{ event_register_cnt }}</h1>
+    {% if instance.Even_Owner == request.user %}
+        <button class="btn btn-success"
+                onclick="window.location.href='../../userList/{{ instance.id }}'">
+            Pokaż zapisanych
+        </button>
+    {% endif %}
+
+</div>
 
 {% endblock %}

@@ -8,9 +8,10 @@ urlpatterns = [
     path("delete/<int:i>/", views.delete_main_event, name="Usuniecie Event"),
     path("addSmallEvent/<int:i>/", views.add_small_event, name="Dodanie Small Event"),
     path("deleteSmallEvent/<int:i>/", views.delete_small_event, name="Usuniecie Small Event"),
-    path("editSmallEvent/<int:i>/", views.edit_small_event, name="Edycja Small Event"),    
+    path("editSmallEvent/<int:i>/", views.edit_small_event, name="Edycja Small Event"),
     path("details/<int:i>/register", views.register_to_event, name="registertoevent"),
     path("addopinionevent/<int:i>", views.add_opinion, name="add opinion"),
-    path("deleteopinion/<int:i>", views.delete_opinion, name="add opinion"),
+    path("deleteopinion/<int:i>", views.delete_opinion, name="delete opinion"),
     path("editopinion/<int:i>", views.edit_opinion, name="edit opinion"),
+    path("userList/<int:i>", views.user_list, name="show user list in event"),
 ]

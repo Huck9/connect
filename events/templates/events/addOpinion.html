@@ -5,12 +5,12 @@
 
 {% block content %}
 
-
+    <div class="editOpinion">
         <form method="POST">
             {% csrf_token %}
             <h1>Dodaj opinie</h1>
             {{ form|crispy }}
             <button type="submit" class="btn btn-success">Dodaj opinie</button>
         </form>
-
+    </div>
 {% endblock %}

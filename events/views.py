@@ -11,11 +11,6 @@ def add_main_event(request):
         if request.method == "POST":
             form = CreateMainEvent(request.POST)
             if form.is_valid():
-                # ev_map = form.changed_data["ev_Map"]
-                # ev_icon = form.changed_data["ev_Icon"]
-                # Event_MapFile = ev_map,
-                # Event_IconFile = ev_icon
-
                 t = MainEvent(Event_Name=form.cleaned_data["ev_Nam"],
                               Event_Start_Date=form.cleaned_data["ev_Start_Date"],
                               Event_Start_Time=form.cleaned_data["ev_Start_Time"],
@@ -39,13 +34,33 @@ def details_main_event(request, i=None):
     instance = get_object_or_404(MainEvent, id=i)
     small_events = SmallEvent.objects.filter(Main_Event_ID=instance.id)
     event_opinion = eventOpinion.objects.filter(Main_Event_ID=instance.id)
+    event_register = EventRegister.objects.filter(Main_Event_ID=instance.id)
+    event_register_cnt = EventRegister.objects.filter(Main_Event_ID=instance.id).count()
     context = {
         "instance": instance,
         "small_events": small_events,
         "eventOpinion": event_opinion,
-
+        "event_register": event_register,
+        "event_register_cnt": event_register_cnt,
     }
     return render(request, "events/show.html", context)
+
+
+def user_list(request, i=None):
+    instance = get_object_or_404(MainEvent, id=i)
+    event_register_cnt = EventRegister.objects.filter(Main_Event_ID=instance.id).count()
+    event_register = EventRegister.objects.filter(Main_Event_ID=instance.id)
+
+    if request.user == instance.Even_Owner:
+        context = {
+            "instance": instance,
+            "event_register": event_register,
+            "event_register_cnt": event_register_cnt,
+
+        }
+        return render(request, "events/userList.html", context)
+    else:
+        return HttpResponseRedirect("/../LoginError")
 
 
 def edit_main_event(request, i=None):
@@ -197,4 +212,3 @@ def edit_opinion(request, i=None):
             return render(request, 'events/editopinion.html', {'form': instance_form})
     else:
         return HttpResponseRedirect("/../LoginError")
-
