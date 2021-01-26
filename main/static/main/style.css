@@ -85,3 +85,12 @@ a{
     text-align: center;
     margin-top: 16%;
 }
+
+@media (max-width: 800px) {
+    nav {
+        flex-direction: column;
+    }
+    button {
+        ;
+    }
+}
