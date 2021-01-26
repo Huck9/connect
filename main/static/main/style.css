@@ -1,4 +1,10 @@
+body{
+    background-color: #4a555d;
 
+}
+.maxcontainer{
+  flex: 1 0 auto;
+}
 .form{
     float: left;
 }
@@ -8,6 +14,9 @@
 .container{
     height: 100%;
     padding: 40px;
+    background-color: aliceblue;
+    margin-top: 5%;
+    border-radius: 20px;
 }
 .element{
 
@@ -17,8 +26,7 @@
     margin: auto;
     width: 400px;
     padding: 30px;
-    border: 2px solid #343a40;
-    border-radius: 20px;
+
 }
 
 header a{
@@ -35,10 +43,11 @@ header a{
 }
 
 .mainContainer{
-    border-radius: 20px;
+    background-color: aliceblue;
     text-align: center;
-    border: solid 3px #343a40;
     padding: 20px;
+    border-radius: 20px;
+
 }
 
 .events{
@@ -52,14 +61,12 @@ header a{
 
 .eventdata{
     margin: 10px;
-    border: 3px solid black;
-    border-radius: 20px;
+
 }
 
 .opinion{
     margin: 10px;
-    border: 3px solid black;
-    border-radius: 20px;
+
     padding: 10px;
 }
 .opiniontext{
@@ -74,8 +81,6 @@ header a{
 .mypanel{
     padding: 20px;
     margin: auto;
-    border: 3px solid black;
-    border-radius: 20px;
     text-align: center;
     width: 50%;
 }
@@ -83,4 +88,9 @@ header a{
 a{
    color:black;
     text-decoration: none!important;
+}
+
+#sticky-footer {
+    text-align: center;
+    margin-top: 16%;
 }
